@@ -12,11 +12,20 @@ export class BookService {
 
   constructor(private http: HttpClient) { }
 
+
+  getBooks(theCategoryId:number) : Observable<Book[]>{
+    const searchUrl = `${this.baseUrl}/search/categoryid?id=${theCategoryId}`;
+    return this.http.get<IBook>(searchUrl).pipe(
+      map(response => response._embedded.books) 
+    );
+  }
+
+  /*
   getBooks() : Observable<Book[]>{
     return this.http.get<IBook>(this.baseUrl).pipe(
       map(response => response._embedded.books) 
     );
-  }
+  } */
 }
 
 interface IBook{
